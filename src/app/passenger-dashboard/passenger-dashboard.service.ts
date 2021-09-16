@@ -24,4 +24,12 @@ export class PassengerDashboardService {
                .pipe(map((data: any) => data.passengers))
               // .pipe(pluck('passengers'))
   }
+
+  updatePassenger(passenger: Passenger): Observable<Passenger[]> {
+    return this.http
+                .put(`${PASSENGER_API}/${passenger.id}`, passenger)
+                .pipe(map((data: any) => {
+                  return data.passengers
+                }))
+  }
 }
