@@ -1,48 +1,27 @@
 import { Passenger } from "./models/passenger.interface";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import { Observable } from "rxjs";
+import { pluck, map } from 'rxjs/operators';
+
+const PASSENGER_API: string = 'assets/mock/db.json';
 
 @Injectable()
 export class PassengerDashboardService {
   constructor(private http: HttpClient) {}
+  // old way
+  // getPassnegers(): Observable<Passenger[]> {
+  //   return this.http
+  //              .get(PASSENGER_API)
+  //              .pipe(map((response: HttpResponse) => response.json()))
+  // }
 
-  getPassnegers(): Passenger[] {
-    return [
-      {
-        id: 1,
-        fullName: 'Stephen',
-        checkedIn: true,
-        checkInDate: 139074200000,
-        children: null
-      },
-      {
-        id: 2,
-        fullName: 'Rose',
-        checkedIn: false,
-        checkInDate: null,
-        children: [{ name: 'Ted', age: 12 }, { name: 'Chloe', age: 7}]
-      },
-      {
-        id: 3,
-        fullName: 'James',
-        checkedIn: true,
-        checkInDate: 1391606000000,
-        children: null
-      },
-      {
-        id: 4,
-        fullName: 'Louise',
-        checkedIn: true,
-        checkInDate: 1488412800000,
-        children: [{ name: 'Jessica', age: 1 }]
-      },
-      {
-        id: 5,
-        fullName: 'Tina',
-        checkedIn: false,
-        checkInDate: null,
-        children: null
-      }
-    ]
+  // new way
+  getPassnegers(): Observable<Passenger[]> {
+    return this.http
+               .get<Passenger[]>(PASSENGER_API)
+               .pipe(map((data: any) => data.passengers))
+              // .pipe(pluck('passengers'))
   }
 }
