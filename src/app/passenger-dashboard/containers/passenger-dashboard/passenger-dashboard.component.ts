@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PassengerDashboardService } from '../../passenger-dashboard.service';
 
 import { Passenger } from '../../models/passenger.interface';
@@ -28,25 +28,27 @@ import { Passenger } from '../../models/passenger.interface';
 export class PassengerDashboardComponent implements OnInit {
   passengers: Passenger[] = [];
 
-  constructor(private passengerService: PassengerDashboardService) {}
+  constructor(private passengerService: PassengerDashboardService) { }
 
   ngOnInit() {
     this.passengerService
-        .getPassnegers()
-        .subscribe((data: Passenger[]) => this.passengers = data);
+      .getPassnegers()
+      .subscribe((data: Passenger[]) => this.passengers = data);
   }
+
   handleEdit(event: Passenger) {
     this.passengerService
-        .updatePassenger(event)
-        .subscribe((data: any) => {
-          this.passengers = this.passengers.map((passenger: Passenger) => {
-            if(passenger.id === event.id) {
-              passenger = Object.assign({}, passenger, event)
-            }
-            return passenger;
-          })
-        })
-    
+      .updatePassenger(event)
+      .subscribe((data: any) => {
+        // this.passengers = this.passengers.map((passenger: Passenger) => {
+        //   if (passenger.id === event.id) {
+        //     passenger = { ...passenger, ...event }
+        //   }
+        //   return passenger;
+        // })
+        console.log(data);
+      })
+
   }
   handleRemove(event: Passenger) {
     this.passengers = this.passengers.filter((passenger: Passenger) => {

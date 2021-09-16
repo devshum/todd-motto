@@ -1,15 +1,20 @@
 import { Passenger } from "./models/passenger.interface";
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from "rxjs";
-import { pluck, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import { environment } from "src/environments/environment";
 
-const PASSENGER_API: string = 'assets/mock/db.json';
 
 @Injectable()
 export class PassengerDashboardService {
-  constructor(private http: HttpClient) {}
+
+
+  private _apiUrl = environment.apiUrl;
+
+
+  constructor(private http: HttpClient) { }
   // old way
   // getPassnegers(): Observable<Passenger[]> {
   //   return this.http
@@ -20,16 +25,21 @@ export class PassengerDashboardService {
   // new way
   getPassnegers(): Observable<Passenger[]> {
     return this.http
-               .get<Passenger[]>(PASSENGER_API)
-               .pipe(map((data: any) => data.passengers))
-              // .pipe(pluck('passengers'))
+      .get<Passenger[]>(`${this._apiUrl}/passengers`)
   }
 
   updatePassenger(passenger: Passenger): Observable<Passenger[]> {
     return this.http
-                .put(`${PASSENGER_API}/${passenger.id}`, passenger)
-                .pipe(map((data: any) => {
-                  return data.passengers
-                }))
+      .put(`${this._apiUrl}/passengers/${passenger.id}`, passenger)
+      .pipe(map((data: any) => {
+        return data.passengers
+      }))
+  }
+
+  getVladChildren(): Observable<any[]> {
+    return this.http.get<any[]>(`${this._apiUrl}/vlad-children`);
+  }
+  createChildren(data: { name: string }): Observable<{ name: string }> {
+    return this.http.post<{ name: string }>(`${this._apiUrl}/vlad-children`, data);
   }
 }
