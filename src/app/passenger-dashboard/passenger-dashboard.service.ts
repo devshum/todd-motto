@@ -36,10 +36,18 @@ export class PassengerDashboardService {
       }))
   }
 
-  getVladChildren(): Observable<any[]> {
-    return this.http.get<any[]>(`${this._apiUrl}/vlad-children`);
+  removePassenger(passenger: Passenger): Observable<Passenger[]> {
+    return this.http
+      .delete(`${this._apiUrl}/passengers/${passenger.id}`)
+      .pipe(map((data: any) => {
+        return data.passengers
+      }))
   }
-  createChildren(data: { name: string }): Observable<{ name: string }> {
-    return this.http.post<{ name: string }>(`${this._apiUrl}/vlad-children`, data);
-  }
+
+  // getVladChildren(): Observable<any[]> {
+  //   return this.http.get<any[]>(`${this._apiUrl}/vlad-children`);
+  // }
+  // createChildren(data: { name: string }): Observable<{ name: string }> {
+  //   return this.http.post<{ name: string }>(`${this._apiUrl}/vlad-children`, data);
+  // }
 }
