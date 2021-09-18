@@ -28,6 +28,11 @@ export class PassengerDashboardService {
       .get<Passenger[]>(`${this._apiUrl}/passengers`)
   }
 
+  getPassneger(id: number): Observable<any> {
+    return this.http
+      .get(`${this._apiUrl}/passengers/${id}`)
+  }
+
   updatePassenger(passenger: Passenger): Observable<Passenger[]> {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json'
