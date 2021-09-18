@@ -46,7 +46,6 @@ export class PassengerDashboardComponent implements OnInit {
         //   }
         //   return passenger;
         // })
-        console.log(data);
       })
 
   }
@@ -58,6 +57,5 @@ export class PassengerDashboardComponent implements OnInit {
           //   return passenger.id !== event.id;
           // })
         })
-   
       }
 }
