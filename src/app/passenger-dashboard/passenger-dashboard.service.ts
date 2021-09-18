@@ -1,5 +1,5 @@
 import { Passenger } from "./models/passenger.interface";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from "rxjs";
@@ -29,8 +29,14 @@ export class PassengerDashboardService {
   }
 
   updatePassenger(passenger: Passenger): Observable<Passenger[]> {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+    let options = {
+      headers: headers
+    }
     return this.http
-      .put(`${this._apiUrl}/passengers/${passenger.id}`, passenger)
+      .put(`${this._apiUrl}/passengers/${passenger.id}`, passenger, options)
       .pipe(map((data: any) => {
         return data.passengers
       }))
