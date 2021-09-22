@@ -6,16 +6,19 @@ import { CommonModule } from '@angular/common';
 import { PassengerDashboardModule } from './passenger-dashboard/passenger-dashboard.module';
 
 import { HomeComponent } from './home.component';
+import { NotFoundComponent } from './not-found.component';
 import { AppComponent } from './app.component';
 
 const routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' }
+  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: '**', component: NotFoundComponent, pathMatch: 'full' }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
