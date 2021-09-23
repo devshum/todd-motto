@@ -7,7 +7,16 @@ import { PassengerCountComponent } from './components/passenger-count/passenger-
 import { PassengerDetailComponent } from './components/passenger-detail/passenger-detail.component';
 import { PassengerDashboardService } from './passenger-dashboard.service';
 import { PassengerViewerComponent } from './containers/passenger-viewer/passenger-viewer.component';
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+
+const routes = [
+  {
+    path: 'passengers',
+    component: PassengerDashboardComponent
+  }
+];
+
 @NgModule({
   declarations: [
     PassengerDashboardComponent,
@@ -19,10 +28,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     HttpClientModule,
-    FormsModule
-  ],
-  exports: [
-    PassengerViewerComponent
+    FormsModule,
+    RouterModule.forChild(routes)
   ],
   providers: [
     PassengerDashboardService
