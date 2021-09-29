@@ -13,7 +13,10 @@ import { FormsModule } from '@angular/forms';
 const routes = [
   {
     path: 'passengers',
-    component: PassengerDashboardComponent
+    children: [
+      { path: '', component: PassengerDashboardComponent },
+      { path: ':id', component: PassengerViewerComponent }
+    ], 
   }
 ];
 
